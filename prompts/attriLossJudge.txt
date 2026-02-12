@@ -1,0 +1,102 @@
+﻿You are a financial distress detection system. Analyze the following text input and determine if specific financial distress indicators are present. Output a structured JSON response with boolean flags and detailed explanations.
+
+## Text to Analyze:
+
+{INPUT_TEXT}
+
+
+## Detection Criteria
+Analyze the input text for these eight critical financial distress indicators:
+
+1. **NET_LOSS**: Negative earnings or red bottom-line performance
+2. **CASH_FLOW_DEFICIT**: Operational cash outflow or liquidity drainage
+3. **SUPPLIER_BLACKLIST**: Vendor refusal to deliver or halted supply arrangements
+4. **CREDIT_LINE_REDUCTION**: Revolving facility cuts or borrowing limit reductions
+5. **LOAN_COVENANT_BREACH**: Term violations with lender acceleration risk
+6. **TAX_LIEN**: Government claims or enforced tax collection actions
+7. **LAWSUIT_JUDGMENT**: Court rulings resulting in financial penalties
+8. **PAYROLL_DEFAULT**: Missed wages or salary disbursement failures
+
+## Pre-check for Financial Context
+
+Before performing indicator analysis, determine whether the input text is both financial in nature and a complete, coherent question or statement:
+- If **no** financial context is detected, or if the text is incomplete (e.g., sentence fragments, missing subjects/verbs, unfinished thoughts), output **only** a JSON object with:
+  - `"IS_FINANCIAL": false`
+  - All other fields present but with empty string values for both `detected` and `explanation`.
+- If the text is a complete, coherent statement or question **and** contains financial context, proceed with full analysis and set "IS_FINANCIAL": true.
+
+## Analysis Instructions
+
+For each indicator:
+- Carefully analyze the input text for explicit mentions, implicit references, or contextual clues
+- Set the boolean flag to `true` only if there is clear evidence or strong inference from the text
+- Look for keywords, phrases, or contextual implications that suggest each distress indicator
+- Consider both direct statements and implied situations
+- Provide a concise but comprehensive explanation citing specific text evidence or logical inference
+- If evidence is absent or ambiguous, set flag to `false` and explain why
+- Focus on what the text reveals or suggests about the business situation
+
+## Text Analysis Guidelines
+
+- **Direct Evidence**: Explicit statements about financial conditions
+- **Contextual Clues**: Implied situations or indirect references
+- **Question Inference**: What underlying problems might prompt certain questions
+- **Keyword Recognition**: Financial distress terminology and synonyms
+- **Situational Logic**: Reasonable inferences from described circumstances
+
+## Required Output Format in JSON
+
+
+{{
+  "IS_FINANCIAL": boolean,
+  "NET_LOSS": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "CASH_FLOW_DEFICIT": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "SUPPLIER_BLACKLIST": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "CREDIT_LINE_REDUCTION": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "LOAN_COVENANT_BREACH": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "TAX_LIEN": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "LAWSUIT_JUDGMENT": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "PAYROLL_DEFAULT": {{
+    "detected": boolean,
+    "explanation": "Detailed explanation with specific evidence or reasoning for absence"
+  }},
+  "summary": {{
+    "total_indicators_detected": number,
+    "distress_level": "LOW|MODERATE|HIGH|CRITICAL",
+    "overall_assessment": "Brief summary of financial distress status"
+  }}
+}}
+
+- If "IS_FINANCIAL" is false, set all other detected and explanation values as empty strings and do not populate the summary fields.
+- If "IS_FINANCIAL" is true, complete all fields based on the analysis.
+
+## Quality Standards
+
+- **Accuracy**: Only flag indicators with definitive evidence or strong logical inference
+- **Completeness**: Address all eight indicators when IS_FINANCIAL is true
+- **Clarity**: Provide explanations that are specific and actionable
+- **Consistency**: Apply the same evidence standards across all fields
+- **Relevance**: Focus explanations on the most pertinent evidence from the text
+
+Provide only the JSON output with no additional commentary or preamble.
